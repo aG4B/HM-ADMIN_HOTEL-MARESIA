@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Realizar Check-in{% endblock %}
+
+{% block content %}
+    <h1>Realizar Check-in</h1>
+
+    {% if sucesso %}
+        <p class="success">{{ sucesso }}</p>
+    {% endif %}
+
+    <form method="post">
+        <label for="id_hospede">Selecione o Hóspede:</label>
+        <select id="id_hospede" name="id_hospede" required>
+            {% for hospede in hospedes %}
+                <option value="{{ hospede['id'] }}">{{ hospede['nome_completo'] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="id_quarto">Selecione o Quarto (Apenas disponíveis):</label>
+        <select id="id_quarto" name="id_quarto" required>
+            {% for quarto in quartos %}
+                <option value="{{ quarto['id'] }}">Quarto {{ quarto['numero'] }} ({{ quarto['tipo'] }})</option>
+            {% else %}
+                <option value="" disabled>Nenhum quarto disponível</option>
+            {% endfor %}
+        </select>
+
+        <label for="data_checkout">Data de Check-out:</label>
+        <input type="date" id="data_checkout" name="data_checkout" required>
+
+        <button type="submit">Confirmar Check-in</button>
+    </form>
+{% endblock %}

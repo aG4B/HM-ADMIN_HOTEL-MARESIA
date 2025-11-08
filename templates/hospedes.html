@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestão de Hóspedes{% endblock %}
+
+{% block content %}
+    <h1>Gestão de Hóspedes</h1>
+
+    <form method="post">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome_completo" required size="30">
+        
+        <label for="documento">Documento (CPF/RG):</label>
+        <input type="text" id="documento" name="documento" required>
+        
+        <button type="submit">Adicionar Hóspede</button>
+    </form>
+    <hr>
+
+    <h2>Hóspedes Cadastrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome Completo</th>
+                <th>Documento</th>
+                <th>Ações</th> </tr>
+        </thead>
+        <tbody>
+            {% for hospede in hospedes %}
+            <tr>
+                <td>{{ hospede['nome_completo'] }}</td>
+                <td>{{ hospede['documento'] }}</td>
+                <td>
+                    <a href="{{ url_for('excluir_hospede', id_hospede=hospede['id']) }}" 
+                       class="delete-button" 
+                       onclick="return confirm('Tem certeza que deseja excluir este hóspede?');">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

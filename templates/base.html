@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - HM Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo_header.png') }}" alt="Logo Maresia" class="logo">
+        <nav class="main-nav">
+            {% if session.logged_in %}
+                <a href="{{ url_for('index') }}">Dashboard</a>
+                <a href="{{ url_for('checkin') }}">Check-in</a>
+                <a href="{{ url_for('quartos') }}">Quartos</a>
+                <a href="{{ url_for('hospedes') }}">Hóspedes</a>
+                <a href="{{ url_for('exportar_estadias') }}">Relatório CSV</a>
+                <a href="{{ url_for('logout') }}" class="nav-logout">Sair</a>
+            {% endif %}
+        </nav>
+    </div>
+    <div class="content-wrapper">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div class="footer">
+        <img src="{{ url_for('static', filename='logo_header.png') }}" alt="Logo Maresia" class="footer-logo">
+        <p>&copy; 2025 HM Admin (Hotel Maresia). Todos os direitos reservados.</p>
+    </div>
+</body>
+</html>

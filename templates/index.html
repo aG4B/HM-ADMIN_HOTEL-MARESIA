@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Painel de Controle do Hotel</h1>
+    <a href="{{ url_for('exportar_estadias') }}" class="button-csv">Baixar Relatório (CSV)</a>
+    <hr>
+
+    <h2>Estadias Ativas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Hóspede</th>
+                <th>Quarto</th>
+                <th>Data do Check-in</th>
+                <th>Data do Check-out</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for estadia in estadias %}
+            <tr>
+                <td>{{ estadia['nome_completo'] }}</td>
+                <td>{{ estadia['numero'] }}</td>
+                <td>{{ estadia['data_checkin'] | strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ estadia['data_checkout'] }}</td>
+                <td>
+                    <a href="{{ url_for('checkout', id_estadia=estadia['id']) }}">Realizar Check-out</a>
+                    <br>
+                    <a href="{{ url_for('gerar_chave_qrcode', id_estadia=estadia['id']) }}" target="_blank">Ver Chave QR</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">Nenhuma estadia ativa no momento.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestão de Quartos{% endblock %}
+
+{% block content %}
+    <h1>Gestão de Quartos</h1>
+
+    <form method="post">
+        <label for="numero">Número do Quarto:</label>
+        <input type="number" id="numero" name="numero" required>
+        
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" required>
+            <option value="Solteiro">Solteiro</option>
+            <option value="Casal">Casal</option>
+            <option value="Suíte">Suíte</option>
+        </select>
+        
+        <button type="submit">Adicionar Quarto</button>
+    </form>
+    <hr>
+    
+    <h2>Quartos Cadastrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Status</th>
+                <th>Ações</th> </tr>
+        </thead>
+        <tbody>
+            {% for quarto in quartos %}
+            <tr>
+                <td>{{ quarto['numero'] }}</td>
+                <td>{{ quarto['tipo'] }}</td>
+                <td>{{ quarto['status'] }}</td>
+                <td>
+                    <a href="{{ url_for('excluir_quarto', id_quarto=quarto['id']) }}" 
+                       class="delete-button"
+                       onclick="return confirm('Tem certeza que deseja excluir este quarto?');">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
